@@ -1,0 +1,37 @@
+[package]
+name = "anonycast"
+version = "0.1.0"
+edition = "2021"
+default-run = "anonycast"
+
+[dependencies]
+drand = { path = "../drand" }
+crypto = { path = "../crypto" }
+
+bincode = "1.3.3"
+bytes = "1.6.0"
+clap = { version = "4.5.4", features = ["derive"] }
+serde = { version = "1.0.201", features = ["derive"] }
+tracing = "0.1.40"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
+tor-stream = "0.3.0"
+serde_json = "1.0.120"
+rayon = "1.10.0"
+tokio = { version = "1.38.0", features = ["full"] }
+anyhow = "1.0.86"
+crossbeam = { version = "0.8.4", features = ["crossbeam-channel"] }
+tracing-chrome = "0.7.2"
+
+[target.x86_64-unknown-linux-musl.dependencies]
+openssl = { version = "*", features = ["vendored"] }
+
+[target.'cfg(not(target_env = "msvc"))'.dependencies]
+tikv-jemallocator = "0.5"
+
+[dev-dependencies]
+criterion = "0.5.1"
+futures = { version = "0.3.30", features = ["executor"] }
+
+[[bench]]
+name = "benchmark"
+harness = false

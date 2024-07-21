@@ -1,0 +1,16 @@
+[workspace]
+resolver = "2"
+members = ["anonycast", "crypto", "drand"]
+default-members = ["anonycast"]
+
+[profile.release]
+#strip = true
+#lto = true
+debug = true
+
+
+[workspace.metadata.cross.target.x86_64-unknown-linux-musl]
+pre-build = [
+    "dpkg --add-architecture amd64",
+    "apt-get update && apt-get --assume-yes install libssl-dev:amd64"
+]
